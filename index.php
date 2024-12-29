@@ -145,6 +145,10 @@
             <label for="utm_term" class="form-label">UTM Term</label>
             <input type="text" class="form-control" id="utm_term" name="utm_term">
         </div>
+        <div class="mb-3">
+            <label for="customName" class="form-label">Nome Customizado (opcional):</label>
+            <input type="text" class="form-control" id="customName" name="custom_name">
+        </div>
         <button type="submit" class="btn btn-dark">Gerar UTM</button>
     </form>
 
