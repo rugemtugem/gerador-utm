@@ -124,7 +124,7 @@
         </label>
     </div>
     <h1 class="text-center">Gerador de UTM</h1>
-    <form action="generate.php" method="POST" class="mt-4">
+    <form id="utmForm" action="generate.php" method="POST" class="mt-4">
         <div class="mb-3">
             <label for="website_url" class="form-label">Website URL</label>
             <input type="url" class="form-control" id="website_url" name="website_url" required>
@@ -144,10 +144,6 @@
         <div class="mb-3">
             <label for="utm_term" class="form-label">UTM Term</label>
             <input type="text" class="form-control" id="utm_term" name="utm_term">
-        </div>
-        <div class="mb-3">
-            <label for="customName" class="form-label">Nome Customizado (opcional):</label>
-            <input type="text" class="form-control" id="customName" name="custom_name">
         </div>
         <button type="submit" class="btn btn-dark">Gerar UTM</button>
     </form>
