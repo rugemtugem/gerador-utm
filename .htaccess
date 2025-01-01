@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteBase /r/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-zA-Z0-9_\-]+)$ go.php?code=$1 [L,QSA]

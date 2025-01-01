@@ -3,7 +3,7 @@ require 'db.php';
 
 // Obter o código e validar
 $code = isset($_GET['code']) ? trim($_GET['code']) : '';
-if (!preg_match('/^[a-zA-Z0-9]{6}$/', $code)) {
+if (!preg_match('/^[a-zA-Z0-9_\-]+$/', $code)) {
     header("Location: index.php?error=invalid_code");
     exit;
 }
