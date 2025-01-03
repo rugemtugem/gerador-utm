@@ -1,9 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&family=Shrikhand&display=swap');
+
 body {
     font-size: 0.8rem;
 }
 
 .p5 {
     width: 12rem !important;
+}
+
+.help-text {
+    font-family: Roboto, sans-serif;
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 1.66;
+    text-align: left;
+    margin: 4px 14px 0px;
 }
 
 /* Estilos adicionais para o modo claro e escuro */
@@ -93,6 +104,10 @@ body {
     color: #524e4e;
 }
 
+.theme-link {
+    text-decoration: none;
+  }
+  
 .light-link {
     color: #212529 !important;
 }
@@ -100,7 +115,9 @@ body {
 .dark-link {
     color: #f8f9fa !important;
 }
-
+.light-link:hover, .dark-link:hover {
+    text-decoration: underline;
+  }
 
 /* Movimento do fundo */
 .theme-switch-container.light-active .theme-switch-bg {
@@ -137,8 +154,84 @@ a {
     margin-left: 5px;
 }
 
+/* Media query para telas pequenas */
 @media (max-width: 768px) {
-    .container {
-        padding-left: 70px;
+    .theme-switch-container {
+        flex-direction: row;
+        width: 150px;
+        height: 40px;
     }
+
+    .theme-switch-bg {
+        height: 100%;
+        width: 50%;
+        transform: translateX(0);
+        transition: transform 0.4s ease-in-out;
+    }
+
+    .theme-switch-container.light-active .theme-switch-bg {
+        transform: translateX(0);
+    }
+
+    .theme-switch-container.dark-active .theme-switch-bg {
+        transform: translateX(100%);
+    }
+
+    .theme-switch-option {
+        flex-direction: row;
+        padding: 0;
+    }
+
+    .light-option {
+        margin-top: 0;
+        padding-right: 0;
+    }
+
+    .dark-option {
+        padding: 0 0 0 20px;
+    }
+
+    .fixed-top {
+        position: relative;
+    }
+
+    .mt-5 {
+        margin-top: 0;
+    }
+
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+    }
+
+    thead tr {
+        display: none;
+    }
+
+    tr {
+        margin-bottom: 1rem;
+    }
+
+    td {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        border: none;
+        border-bottom: 1px solid #ddd;
+        padding: 8px;
+        position: relative;
+    }
+
+    td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        margin-bottom: 5px;
+        border-bottom: 1px solid #ccc;
+        /* Espaçamento entre o label e o conteúdo */
+    }
+
 }

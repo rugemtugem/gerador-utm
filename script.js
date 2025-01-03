@@ -150,7 +150,6 @@ function copyToClipboard(icon, text) {
   );
 }
 
-// Modal excluir UTM
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".delete-btn").forEach(function (button) {
     button.addEventListener("click", function () {
@@ -170,10 +169,18 @@ document.addEventListener("DOMContentLoaded", function () {
                                     <div class="alert alert-danger border-0 m-0 h5 text-center" role="alert">
                                         Tem certeza que deseja excluir esta UTM? <br><strong class="lh-lg text-danger">Esta ação é irreversível!</strong>
                                     </div>
+                                    <div class="form-group mt-3">
+                                        <label for="deletePassword" class="form-label text-danger">Digite sua senha para exclusão:</label>
+                                        <input type="password" class="form-control" id="deletePassword" placeholder="Digite sua senha" disabled>
+                                    </div>
+                                    <div class="form-check mt-3 fw-bolder">
+                                        <input class="form-check-input" type="checkbox" id="confirmRadio" name="confirmRadio" value="confirm">
+                                        <label class="form-check-label text-danger" for="confirmRadio">Estou ciente e quero continuar</label>
+                                    </div>
                                 </div>
                                 <div class="modal-footer border-danger">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-danger" id="confirmDelete">Excluir</button>
+                                    <button type="button" class="btn btn-danger" id="confirmDelete" disabled>Excluir</button>
                                 </div>
                             </div>
                         </div>
@@ -188,16 +195,31 @@ document.addEventListener("DOMContentLoaded", function () {
       );
       modal.show();
 
+      // Handle enabling/disabling password input and delete button
+      document.getElementById("confirmRadio").addEventListener("change", function () {
+        var deletePassword = document.getElementById("deletePassword");
+        var confirmDelete = document.getElementById("confirmDelete");
+        if (this.checked) {
+          deletePassword.disabled = false;
+          confirmDelete.disabled = false;
+        } else {
+          deletePassword.disabled = true;
+          confirmDelete.disabled = true;
+        }
+      });
+
       // Handle confirm delete
       document.getElementById("confirmDelete").addEventListener(
         "click",
         function confirmDeleteHandler() {
+          var password = document.getElementById("deletePassword").value;
+
           fetch("delete.php", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ id: id }),
+            body: JSON.stringify({ id: id, password: password }),
           })
             .then((response) => response.json())
             .then((data) => {
@@ -207,7 +229,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   .closest("tr")
                   .remove();
               } else {
-                alert("Erro ao excluir a entrada.");
+                alert(data.error || "Erro ao excluir a entrada.");
               }
               modal.hide();
               modal.dispose(); // Properly dispose of the modal
